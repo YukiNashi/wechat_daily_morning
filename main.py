@@ -36,10 +36,11 @@ def get_birthday():
   return (next - today).days
 
 def get_words():
-  words = requests.get("https://v2.jinrishici.com/one.json")
+  url = "https://v2.jinrishici.com/one.json"
+  words = requests.get(url).json()
   if words.status_code != 200:
     return get_words()
-  return words.json()['data']['origin']['content']
+  return words['data']['origin']['content']
 
 def get_random_color():
   return "#%06x" % random.randint(0, 0xFFFFFF)
