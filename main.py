@@ -38,9 +38,11 @@ def get_birthday():
 def get_words():
   url = "https://v2.jinrishici.com/one.json"
   words = requests.get(url).json()
+  all_src=[]
+  all_des=[] 
   if words['status'] == 'success':
     return get_words()
-  return words['data']['origin']['content']
+  return words['data']['origin']['content'][0]
 
 def get_random_color():
   return "#%06x" % random.randint(0, 0xFFFFFF)
