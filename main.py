@@ -38,7 +38,7 @@ def get_birthday():
 def get_words():
   url = "https://v2.jinrishici.com/one.json"
   words = requests.get(url).json()
-  if words.status_code != 200:
+  if words['status'] = 'success':
     return get_words()
   return words['data']['origin']['content']
 
