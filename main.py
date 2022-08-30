@@ -21,8 +21,9 @@ template_id = os.environ["TEMPLATE_ID"]
 def get_weather():
   url = "https://api.map.baidu.com/weather_abroad/v1/?data_type=all&ak=4TqFCTbN37fk0AXA5g2i4Suao9rODaAC&district_id=" + city
   res = requests.get(url).json()
-  weather = res['result']['now']
-  return weather['text'], math.floor(weather['temp'])
+  weather1 = res['result']['now']
+  weather2 = res['result']['location']
+  return weather1['text'], math.floor(weather1['temp']), weather2['city']
 
 def get_count():
   delta = today - datetime.strptime(start_date, "%Y-%m-%d")
@@ -47,7 +48,7 @@ def get_random_color():
 client = WeChatClient(app_id, app_secret)
 
 wm = WeChatMessage(client)
-wea, temperature = get_weather()
-data = {"weather":{"value":wea},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(), "color":get_random_color()}}
+wea, temperature, city = get_weather()
+data = {"city":{"value":city},"weather":{"value":wea},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(), "color":get_random_color()}}
 res = wm.send_template(user_id, template_id, data)
 print(res)
