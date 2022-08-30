@@ -21,7 +21,7 @@ template_id = os.environ["TEMPLATE_ID"]
 def get_weather():
   url = "https://api.map.baidu.com/weather_abroad/v1/?data_type=all&ak=4TqFCTbN37fk0AXA5g2i4Suao9rODaAC&district_id=" + city
   res = requests.get(url).json()
-  weather = res['result']['now'][0]
+  weather = res['result']['now']
   return weather['text'], math.floor(weather['rh'])
 
 def get_count():
