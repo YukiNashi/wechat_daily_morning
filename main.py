@@ -22,7 +22,7 @@ def get_weather():
   url = "https://api.map.baidu.com/weather_abroad/v1/?data_type=all&ak=4TqFCTbN37fk0AXA5g2i4Suao9rODaAC&district_id=" + city
   res = requests.get(url).json()
   weather = res['result']['now']
-  return weather['weathertext'], math.floor(weather['temp'])
+  return weather['text'], math.floor(weather['temp'])
 
 def get_count():
   delta = today - datetime.strptime(start_date, "%Y-%m-%d")
