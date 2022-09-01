@@ -35,14 +35,22 @@ def get_birthday():
     next = next.replace(year=next.year + 1)
   return (next - today).days
 
+'''
+    通过API获取json格式诗词、并解析出对应的 标题、作者、内容
+    title:  诗词名
+    author: 作者
+    origin: 内容
+'''
+
 def get_words():
-  url = "https://v2.jinrishici.com/one.json"
-  words = requests.get(url).json()
-  all_src=[]
-  all_des=[] 
-  if words['status'] == 'success':
-    return get_words()
-  return words['data']['origin']['content'][0]
+  http = urllib3.PoolManager()
+  result = http.request('GET','https://v2.jinrishici.com/sentence', headers={'X-User-Token': 'lbPaXqfSpHR9/XRM46asGkOYCshAxO5I'})
+  s = json.loads(result.data)
+  title = s['data']['origin']['title']
+  author = s['data']['origin']['dynasty'] + '--' + s['data']['origin']['author']
+  origin = json.loads(result.data)['data']['origin']['content']
+  return get_words()
+  return title, author, origin
 
 def get_random_color():
   return "#%06x" % random.randint(0, 0xFFFFFF)
@@ -51,7 +59,41 @@ def get_random_color():
 client = WeChatClient(app_id, app_secret)
 
 wm = WeChatMessage(client)
-wea, temperature, city = get_weather()
-data = {"city":{"value":city, "color":get_random_color()},"weather":{"value":wea, "color":get_random_color()},"temperature":{"value":temperature, "color":get_random_color()},"love_days":{"value":get_count(), "color":get_random_color()},"birthday_left":{"value":get_birthday(), "color":get_random_color()},"words":{"value":get_words(), "color":get_random_color()}}
+weather, temperature, city = get_weather()
+title, author, origin = get_words()
+data = {
+	"city": {
+		"value": city,
+		"color": get_random_color()
+	},
+	"weather": {
+		"value": weather,
+		"color": get_random_color()
+	},
+	"temperature": {
+		"value": temperature,
+		"color": get_random_color()
+	},
+	"love_days": {
+		"value": get_count(),
+		"color": get_random_color()
+	},
+	"birthday_left": {
+		"value": get_birthday(),
+		"color": get_random_color()
+	},
+	"title": {
+		"value": title,
+		"color": get_random_color()
+	},
+	"author": {
+		"value": author,
+		"color": get_random_color()
+	},
+	"origin": {
+		"value": origin,
+		"color": get_random_color()
+	}
+}
 res = wm.send_template(user_id, template_id, data)
 print(res)
