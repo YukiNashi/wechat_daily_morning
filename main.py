@@ -5,6 +5,7 @@ from wechatpy.client.api import WeChatMessage, WeChatTemplate
 import requests
 import os
 import random
+import urllib3
 
 today = datetime.now()
 start_date = os.environ['START_DATE']
@@ -43,6 +44,7 @@ def get_birthday():
 '''
 
 def get_words():
+  http = urllib3.PoolManager()
   result = http.request('GET','https://v2.jinrishici.com/sentence', headers={'X-User-Token': 'lbPaXqfSpHR9/XRM46asGkOYCshAxO5I'})
   s = json.loads(result.data)
   title = s['data']['origin']['title']
