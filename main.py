@@ -22,7 +22,7 @@ template_id = os.environ["TEMPLATE_ID"]
 
 def get_weather():
 # 调用百度天气API，获取天气、温度、地点
-  url = "https://api.map.baidu.com/weather_abroad/v1/?data_type=all&ak=4TqFCTbN37fk0AXA5g2i4Suao9rODaAC&district_id=" + city
+  url = "https://api.map.baidu.com/weather_abroad/v1/?data_type=all&district_id=FRA10017001001&ak=" + city
   res = requests.get(url).json()
   weather = res['result']['now']
   location = res['result']['location']
