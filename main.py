@@ -9,10 +9,6 @@ import requests
 import os
 import random
 
-#BlockingScheduler定时任务
-from apscheduler.schedulers.blocking import BlockingScheduler
-from datetime import datetime
-
 today = datetime.now()
 start_date = os.environ['START_DATE']
 city = os.environ['CITY']
@@ -56,15 +52,6 @@ def get_words():
 def get_random_color():
 # 随机颜色
   return "#%06x" % random.randint(0, 0xFFFFFF)
-
-
-# 输出时间 周一到周日执行任务
-def job():
-    print(datetime.now().strtime("%Y-%m-%d %H:%M:%S"))
-# BlockingScheduler
-scheduler = BlockingScheduler()
-scheduler.add_job(job, "cron", day_of_week="1-7", hour=14, minute=30)
-scheduler .start()
 
 client = WeChatClient(app_id, app_secret)
 wm = WeChatMessage(client)
