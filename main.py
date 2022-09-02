@@ -63,7 +63,7 @@ def job():
     print(datetime.now().strtime("%Y-%m-%d %H:%M:%S"))
 # BlockingScheduler
 scheduler = BlockingScheduler()
-scheduler.add_job(job, "cron"， day_of_week="1-7", hour=14, minute=30)
+scheduler.add_job(job, "cron", day_of_week="1-7", hour=14, minute=30)
 scheduler .start()
 
 client = WeChatClient(app_id, app_secret)
