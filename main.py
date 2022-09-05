@@ -41,8 +41,7 @@ def get_birthday():
 # 计算生日倒数日
   month = datetime.strptime(birthday, "%Y-%m-%d").strftime("%m")
   day = datetime.strptime(birthday, "%Y-%m-%d").strftime("%d")
-  birthday1 = datetime.strptime(str(month) + "-" + str(day), "%m-%d")
-  next = datetime.strptime(str(date.today().year) + "-" + str(birthday1), "%Y-%m-%d")
+  next = datetime.strptime(str(date.today().year) + "-" + str(month) + "-" + str(day), "%Y-%m-%d")
   if next < datetime.now():
     next = next.replace(year=next.year + 1)
   return (next - today).days
