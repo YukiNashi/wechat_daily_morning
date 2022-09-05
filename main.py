@@ -39,8 +39,8 @@ def get_birthday_total():
 
 def get_birthday():
 # 计算生日倒数日
-  birthday = datetime.strptime(birthday, "%m-%d")
-  next = datetime.strptime(str(date.today().year) + "-" + birthday, "%Y-%m-%d")
+  birthday1 = datetime.strptime(birthday, "%m-%d")
+  next = datetime.strptime(str(date.today().year) + "-" + birthday1, "%Y-%m-%d")
   if next < datetime.now():
     next = next.replace(year=next.year + 1)
   return (next - today).days
@@ -74,6 +74,10 @@ data = {
 	},
 	"love_days": {
 		"value": get_count(),
+		"color": get_random_color()
+	},
+	"birthday_total": {
+		"value": get_birthday_total(),
 		"color": get_random_color()
 	},
 	"birthday_left": {
