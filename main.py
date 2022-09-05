@@ -39,7 +39,9 @@ def get_birthday_total():
 
 def get_birthday():
 # 计算生日倒数日
-  next = datetime.strptime(str(date.birthday.month) + "-" + str(date.birthday.day), "%m-%d")
+  month = datetime.strptime(birthday, '%Y-%m-%d').strftime('%m')
+  day = datetime.strptime(birthday, '%Y-%m-%d').strftime('%d')
+  next = datetime.strptime(str(month) + "-" + str(day), "%m-%d")
   if next < datetime.now():
     next = next.replace(year=next.year + 1)
   return (next - today).days
