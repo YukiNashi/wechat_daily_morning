@@ -15,13 +15,14 @@ birthday = os.environ['BIRTHDAY']
 
 app_id = os.environ["APP_ID"]
 app_secret = os.environ["APP_SECRET"]
+app_ak = os.environ["APP_AK"]
 
 user_id = os.environ["USER_ID"]
 template_id = os.environ["TEMPLATE_ID"]
 
 def get_weather():
-# 调用百度天气API，获取天气、温度、地点
-  url = "https://api.map.baidu.com/weather_abroad/v1/?data_type=all&district_id=FRA10017001001&ak=" + city
+# 调用百度天气API，获取天气、温度、地点；FRA10017001001&ak为里尔的城市代码，其他城市需要修改
+  url = "https://api.map.baidu.com/weather_abroad/v1/?data_type=all&district_id=" + city + "&ak=" + app_ak
   res = requests.get(url).json()
   weather = res['result']['now']
   location = res['result']['location']
