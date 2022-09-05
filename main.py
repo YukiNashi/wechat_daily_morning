@@ -1,4 +1,3 @@
-
 from datetime import date, datetime
 import math
 
@@ -33,8 +32,14 @@ def get_count():
   delta = today - datetime.strptime(start_date, "%Y-%m-%d")
   return delta.days
 
+def get_birthday_total():
+# 计算累计生日天数
+  cumulative = today - datetime.strptime(birthday, "%Y-%m-%d")
+  return cumulative.days
+
 def get_birthday():
 # 计算生日倒数日
+  birthday = datetime.strptime(birthday, "%m-%d")
   next = datetime.strptime(str(date.today().year) + "-" + birthday, "%Y-%m-%d")
   if next < datetime.now():
     next = next.replace(year=next.year + 1)
